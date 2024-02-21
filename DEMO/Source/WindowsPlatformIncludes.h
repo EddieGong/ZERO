@@ -1,6 +1,4 @@
-
-
-module;
+#pragma once    
 
 #include <winsdkver.h>
 #ifndef _WIN32_WINNT
@@ -30,7 +28,4 @@ module;
 #endif
 
 #include <Windows.h>
-
-
-export module ZERO.WindowsPlatformModule;
 

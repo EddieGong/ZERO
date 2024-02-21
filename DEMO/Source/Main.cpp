@@ -1,8 +1,8 @@
 
-import ZERO.WindowsPlatformModule;
+#include "WindowsPlatformIncludes.h"
 import std;
 
-int main()
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, int nCmdShow)
 {
     return 0;
 }

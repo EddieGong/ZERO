@@ -18,7 +18,7 @@
     <ClCompile Include="Source\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\WindowsPlatformModule.ixx">
+    <ClCompile Include="Source\WindowsPlatformIncludes.h">
       <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>

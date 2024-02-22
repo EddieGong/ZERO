@@ -136,8 +136,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\DEMO.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\WindowsPlatformIncludes.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\DEMO.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

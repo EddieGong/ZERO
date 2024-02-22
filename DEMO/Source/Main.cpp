@@ -1,5 +1,14 @@
 
 #include "WindowsPlatformIncludes.h"
+import std;
+#include "DEMO.h"
+
+using namespace ZERO;
+
+namespace
+{
+    std::unique_ptr<DEMO> gDEMO;
+}
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -8,14 +17,26 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
+    gDEMO = std::make_unique<DEMO>();
+
     const wchar_t CLASS_NAME[] = L"ZERO DEMO Window";
 
-    WNDCLASS wc = { };
-    wc.lpfnWndProc   = WndProc;
-    wc.hInstance     = hInstance;
-    wc.lpszClassName = CLASS_NAME;
+    WNDCLASSEXW wcex = { };
+    wcex.cbSize        = sizeof(WNDCLASSEX);
+    wcex.style         = CS_HREDRAW | CS_VREDRAW;
+    wcex.lpfnWndProc   = WndProc;
+    wcex.hInstance     = hInstance;
+    wcex.lpszClassName = CLASS_NAME;
+    wcex.hIcon         = LoadIconW(hInstance, L"IDI_ICON");
+    wcex.hCursor       = LoadCursorW(nullptr, IDC_ARROW);
+    wcex.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
 
-    RegisterClass(&wc);
+    if (!RegisterClassEx(&wcex))
+        return 1;
+
+    RECT rc = { 0, 0, static_cast<LONG>(DEMO::DefualtConfig::width), static_cast<LONG>(DEMO::DefualtConfig::height) };
+    AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
+
 
     HWND hwnd = CreateWindowEx(
         0,                              // Optional window styles.
@@ -24,12 +45,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
         WS_OVERLAPPEDWINDOW,            // Window style
 
         CW_USEDEFAULT, CW_USEDEFAULT,   // Size and position
-        CW_USEDEFAULT, CW_USEDEFAULT,
+        rc.right  - rc.left, 
+        rc.bottom - rc.top,
 
-        NULL,                           // Parent window    
-        NULL,                           // Menu
+        nullptr,                        // Parent window    
+        nullptr,                        // Menu
         hInstance,                      // Instance handle
-        NULL                            // Additional application data
+        gDEMO.get()                     // Additional application data
     );
 
     if (hwnd == NULL)

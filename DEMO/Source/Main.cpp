@@ -1,12 +1,13 @@
 
 #include "WindowsPlatformIncludes.h"
-import std;
-
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, PSTR /*lpCmdLine*/, int nCmdShow)
+int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ PSTR lpCmdLine, _In_ int nCmdShow)
 {
+    UNREFERENCED_PARAMETER(hPrevInstance);
+    UNREFERENCED_PARAMETER(lpCmdLine);
+
     const wchar_t CLASS_NAME[] = L"ZERO DEMO Window";
 
     WNDCLASS wc = { };
@@ -22,8 +23,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, PSTR /*lpCm
         L"ZERO DEMO",                   // Window text
         WS_OVERLAPPEDWINDOW,            // Window style
 
-        // Size and position
-        CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+        CW_USEDEFAULT, CW_USEDEFAULT,   // Size and position
+        CW_USEDEFAULT, CW_USEDEFAULT,
 
         NULL,                           // Parent window    
         NULL,                           // Menu
@@ -39,12 +40,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, PSTR /*lpCm
     ShowWindow(hwnd, nCmdShow);
 
     MSG msg = { };
-    while (GetMessage(&msg, NULL, 0, 0))
+    while (WM_QUIT != msg.message)
     {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
+        if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+        {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        }
+        else
+        {
+            // Run DEMO code
+        }
     }
-
 
     return 0;
 }

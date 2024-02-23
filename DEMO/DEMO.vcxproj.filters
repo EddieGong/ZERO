@@ -24,6 +24,12 @@
     <ClCompile Include="Source\DEMO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ArithmeticBasics.ixx">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LogicalBasics.ixx">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\DEMO.h">

@@ -2,7 +2,7 @@ export module ArithmeticBasics;
 
 import <type_traits>;
 
-namespace ZERO::Arithmetic
+export namespace ZERO::Arithmetic
 {
     template <typename T>
     constexpr T Square(T value)
@@ -19,13 +19,16 @@ namespace ZERO::Arithmetic
     }
 
     template <typename T>
-    constexpr T isEven = (T::value % 2 == 0);
+    constexpr bool IsEven(T value)
+    {
+        return value % 2 == 0;
+    }
 
     template <typename ...Args>
     constexpr auto CountEven(Args&& ...args)
     {
         static_assert(sizeof...(Args) > 0);
-        return (... + isEven<Args>);
+        return (... + IsEven(args));
     }
 
     template<typename T>

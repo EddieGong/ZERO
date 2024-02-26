@@ -80,24 +80,36 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    DEMO* demo = reinterpret_cast<DEMO*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));\
+
+    std::ignore = demo;
+
     switch (message)
     {
     case WM_CREATE:
-        return 0;
+        if (lParam)
+        {
+            auto params = reinterpret_cast<LPCREATESTRUCTW>(lParam);
+            SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(params->lpCreateParams));
+        }
+        break;
+
     case WM_SIZE:
-        return 0;
+        break;
+
     case WM_DESTROY:
         PostQuitMessage(0);
-        return 0;
+        break;
+
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hwnd, &ps);
-
-            FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
-
+            std::ignore = BeginPaint(hwnd, &ps);
             EndPaint(hwnd, &ps);
         }
+        break;
     }
+
+    // DefWindowProc handles all other messages including WM_CLOSE
     return DefWindowProc(hwnd, message, wParam, lParam);
 }

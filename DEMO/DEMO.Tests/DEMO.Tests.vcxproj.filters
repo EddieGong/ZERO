@@ -24,5 +24,8 @@
     <ClCompile Include="..\Source\ArithmeticBasics.ixx">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\IntegerTypes.ixx">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

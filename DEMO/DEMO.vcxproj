@@ -146,6 +146,7 @@
   <ItemGroup>
     <ClCompile Include="Source\ArithmeticBasics.ixx" />
     <ClCompile Include="Source\DEMO.cpp" />
+    <ClCompile Include="Source\IntegerTypes.ixx" />
     <ClCompile Include="Source\LogicalBasics.ixx" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\WindowsPlatformIncludes.h" />
